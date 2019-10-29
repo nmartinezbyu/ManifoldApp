@@ -34,7 +34,7 @@ class Event extends Component {
           <LoginTextInput onChangeText={this.onChange("domain")} title="Domain:" placeholder="pico_app" value={this.state.domain} />
           <LoginTextInput onChangeText={this.onChange("type")} title="Type:" placeholder="say_hello" value={this.state.type} />
           <Button disabled={!(this.state.domain && this.state.type)} title="Raise Event" onPress={this.onPress} />
-          <View style={{height: 300, marginTop: 40, borderWidth: 2, padding:4}}>
+          <View style={{height: 300, width:"80%", marginTop: 40, borderWidth: 2, padding:4}}>
           <ScrollView>
             <Text >{JSON.stringify(this.props.resp, undefined, 4)}</Text>
           </ScrollView>
