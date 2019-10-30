@@ -17,7 +17,7 @@ class Query extends Component {
   }
 
   onPress() {
-    return this.props.queryAction("http", "10.0.2.2", "8080", "3FcPg2WL6zbJEaf47HP2CR", this.state.rid, this.state.func);
+    return this.props.queryAction(this.props.connect.protocol, this.props.connect.host, "8080", "3FcPg2WL6zbJEaf47HP2CR", this.state.rid, this.state.func);
   }
 
   onChange(key) {
@@ -46,7 +46,8 @@ class Query extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    resp: (state.query) ? state.query.response : ""
+    resp: (state.query) ? state.query.response : "",
+    connect: state.connect
   };
 }
 

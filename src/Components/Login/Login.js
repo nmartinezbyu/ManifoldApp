@@ -19,6 +19,7 @@ class Login extends Component {
   }
 
   onPress() {
+    this.props.navigation.navigate('TabNavigation');
     return this.props.connectAction(this.state.host, this.state.port, this.state.eci, this.state.protocol);
   }
 

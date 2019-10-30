@@ -17,7 +17,7 @@ class Event extends Component {
   }
 
   onPress() {
-    return this.props.eventAction("http", "10.0.2.2", "8080", "3FcPg2WL6zbJEaf47HP2CR", this.state.domain, this.state.type);
+    return this.props.eventAction(this.props.connect.protocol, this.props.connect.host, this.props.connect.port, this.props.connect.eci, this.state.domain, this.state.type);
   }
 
   onChange(key) {
@@ -46,7 +46,8 @@ class Event extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    resp: (state.event) ? state.event.response : ""
+    resp: (state.event) ? state.event.response : "",
+    connect: state.connect
   };
 }
 
