@@ -8,14 +8,15 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      host: "",
-      port: "",
-      eci: "",
-      protocol: ""
+      host: this.props.host,
+      port: this.props.port,
+      eci: this.props.eci,
+      protocol: this.props.protocol
     }
 
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
+    this.openScanner = this.openScanner.bind(this);
   }
 
   onPress() {
@@ -31,14 +32,21 @@ class Login extends Component {
     };
   }
 
+  openScanner() {
+    this.props.navigation.navigate('QRScanner');
+  }
+
   render() {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <LoginTextInput onChangeText={this.onChange("host")} title="Host:" placeholder="10.0.2.2" value={this.state.host} />
-        <LoginTextInput onChangeText={this.onChange("port")} title="Port:" placeholder="8080" values={this.state.port} />
-        <LoginTextInput onChangeText={this.onChange("eci")} title="ECI:" placeholder="3FcPg2WL6zbJEaf47HP2CR" />
-        <LoginTextInput onChangeText={this.onChange("protocol")} title="Protocol:" placeholder="http" />
-        <Button disabled={!(this.state.host && this.state.port && this.state.eci && this.state.protocol)} title="Connect" onPress={this.onPress} />
+        <LoginTextInput onChangeText={this.onChange("port")} title="Port:" placeholder="8080" value={this.state.port} />
+        <LoginTextInput onChangeText={this.onChange("eci")} title="ECI:" placeholder="3FcPg2WL6zbJEaf47HP2CR" value={this.state.eci} />
+        <LoginTextInput onChangeText={this.onChange("protocol")} title="Protocol:" placeholder="http" value={this.state.protocol} />
+        <View style={{flexDirection: 'row', justifyContent: "space-around"}}>
+          <View style={{margin: 5}}><Button disabled={!(this.state.host && this.state.port && this.state.eci && this.state.protocol)} title="Connect" onPress={this.onPress} /></View>
+          <View style={{margin: 5}}><Button title="Scan" onPress={this.openScanner} /></View>
+        </View>
       </View>
     );
   }
@@ -46,6 +54,10 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    host: (state.connect) ? state.connect.host : "",
+    port: (state.connect) ? state.connect.port : "",
+    eci: (state.connect) ? state.connect.eci : "",
+    protocol: (state.connect) ? state.connect.protocol : "",
   };
 }
 
