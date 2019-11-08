@@ -1,11 +1,11 @@
 import React from 'react';
 import Query from '../Query/Query';
-import Event from '../Event/Event';
+import EventList from '../EventList/EventList';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 const TabNavigator = createBottomTabNavigator({
-  Event: Event,
+  Event: EventList,
   Query: Query,
 });
 

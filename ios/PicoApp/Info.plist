@@ -53,5 +53,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Used to scan qr codes</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Don't actually need this, but not sure how to use camera without it...</string>
 </dict>
 </plist>
