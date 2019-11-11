@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../Login/Login';
 import TabNavigation from './TabNavigation';
 import QRScanner from '../QRScanner/QRScanner';
+import Query from '../Query/Query';
 
 
 export default createAppContainer(
@@ -10,7 +11,8 @@ export default createAppContainer(
     {
       QRScanner,
       connect: Login,
-      TabNavigation
+      TabNavigation,
+      Query
     },
     {
       initialRouteName: 'connect',

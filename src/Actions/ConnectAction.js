@@ -5,7 +5,6 @@ export const connectAction = (host, port, eci, protocol, rid, callback) => {
 
   return (dispatch, getState) => {
       axios.get(url).then((resp) => {
-        callback(true, "");
         dispatch({
             type: "PICO_CONNECT",
             payload: {
@@ -17,12 +16,13 @@ export const connectAction = (host, port, eci, protocol, rid, callback) => {
               info: resp.data
             }
           });
+          callback(true, "");
       }).catch((resp) => {
-        callback(false, `Unable to connect to engine at ${protocol}://${host}:${port}. Check your internet connection and make sure the engine is running`);
         dispatch({
           type: "PICO_CONNECT",
           payload: { }
         })
+        callback(false, `Unable to connect to engine at ${protocol}://${host}:${port}. Check your internet connection and make sure the engine is running`);
       });
     };
 }
