@@ -25,6 +25,7 @@ class QueryList extends Component {
 
     this.onPress = this.onPress.bind(this);
     this.renderItem = this.renderItem.bind(this);
+    this.openQuery= this.openQuery.bind(this);
   }
 
   onPress() {

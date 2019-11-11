@@ -11,8 +11,7 @@ export default createAppContainer(
     {
       QRScanner,
       connect: Login,
-      TabNavigation,
-      Query
+      TabNavigation
     },
     {
       initialRouteName: 'connect',

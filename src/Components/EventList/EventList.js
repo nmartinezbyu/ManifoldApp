@@ -33,7 +33,9 @@ class EventList extends Component {
     }
 
     this.onPress = this.onPress.bind(this);
-    //this.renderItem = this.renderItem.bind(this);
+    this.renderSectionHeader = this.renderSectionHeader.bind(this);
+    this.renderItem = this.renderItem.bind(this);
+    this.openEvent = this.openEvent.bind(this);
   }
 
   componentDidMount() {
@@ -70,8 +72,20 @@ class EventList extends Component {
     })
   }
 
+  openEvent() {
+    this.props.navigation.navigate('Event');
+  }
+
   onPress() {
     return this.props.eventAction(this.props.connect.protocol, this.props.connect.host, this.props.connect.port, this.props.connect.eci, this.state.domain, this.state.type);
+  }
+
+  renderSectionHeader({section}) {
+    return <Text style={styles.sectionHeader}>{section.domain}</Text>
+  }
+
+  renderItem({item}) {
+    return <Text style={styles.item} onPress={this.openEvent}>{item}</Text>
   }
 
   render() {
@@ -82,8 +96,9 @@ class EventList extends Component {
         </View>
         <View styles={styles.container}>
           <SectionList
-            sections={this.state.displayFormatted} renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-            renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.domain}</Text>}
+            sections={this.state.displayFormatted}
+            renderItem={this.renderItem}
+            renderSectionHeader={this.renderSectionHeader}
             keyExtractor={(item, index) => index}
           />
         </View>
