@@ -29,7 +29,8 @@ class Login extends Component {
   }
 
   onPress() {
-    return this.props.connectAction(this.state.host, this.state.port, this.state.eci, this.state.protocol, this.state.rid, this.connectionAttempted);
+    let host = this.state.protocol + "://" + this.state.host + ":" + this.state.port;
+    return this.props.connectAction(host, this.state.eci, this.state.rid, this.connectionAttempted);
   }
 
   onChange(key) {

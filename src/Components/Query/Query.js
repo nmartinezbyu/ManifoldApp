@@ -1,40 +1,49 @@
 import React, { Component } from 'react';
-import { Text, View, Button, ScrollView} from 'react-native';
-import LoginTextInput from '../Login/LoginTextInput';
+import { Text, View, Button, ScrollView, FlatList} from 'react-native';
+import Arguments from './Arguments';
 import { queryAction } from '../../Actions/QueryAction';
 import { connect } from 'react-redux';
+
+const passedIn = {
+  name: "demo",
+  args: [ "name" ]
+};
 
 class Query extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      rid: "",
-      func: ""
-    }
+
+    this.state={};
 
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
   }
 
   onPress() {
-    return this.props.queryAction(this.props.connect.protocol, this.props.connect.host, "8080", "3FcPg2WL6zbJEaf47HP2CR", this.state.rid, this.state.func);
+    return this.props.queryAction(this.props.connect.host, this.props.connect.eci, this.props.connect.rid, passedIn.name, this.state);
   }
 
   onChange(key) {
     return (value) => {
       this.setState({
         [key] : value
-      })
+      });
+      console.log(key, value);
     };
   }
 
   render() {
     return (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <LoginTextInput onChangeText={this.onChange("rid")} title="RID:" placeholder="pico_app" value={this.state.rid} />
-          <LoginTextInput onChangeText={this.onChange("func")} title="Function:" placeholder="getMessage" value={this.state.func} />
-          <Button disabled={!(this.state.rid && this.state.func)} title="Query" onPress={this.onPress} />
-          <View style={{height: 300, width:"80%", marginTop: 40, borderWidth: 2, padding:4}}>
+        <Text>{passedIn.name}</Text>
+          <View style={{height: 300, width:"80%", marginTop: 40, padding:4}}>
+          <Text>Arguments:</Text>
+
+          <FlatList data={passedIn.args} renderItem={({ item }) => <Arguments title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
+
+          </View>
+          <Button title="Query" onPress={this.onPress} />
+          <View style={{height: 100, width:"80%", marginTop: 40, borderWidth: 2, padding:4}}>
           <ScrollView>
             <Text >{JSON.stringify(this.props.resp, undefined, 4)}</Text>
           </ScrollView>

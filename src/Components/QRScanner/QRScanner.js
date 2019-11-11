@@ -11,10 +11,8 @@ class QRScanner extends Component {
     this.state = {
       alertOpened: false,
       host: "",
-      port: "",
       eci: "",
-      rid: "",
-      protocol: ""
+      rid: ""
     }
 
     this.read = this.read.bind(this);
@@ -38,7 +36,7 @@ class QRScanner extends Component {
 
   connect() {
     this.setState({alertOpened: false});
-    this.props.connectAction(this.state.host, this.state.port, this.state.eci, this.state.protocol, this.state.rid, this.connectionAttempted);
+    this.props.connectAction(this.state.host, this.state.eci, this.state.rid, this.connectionAttempted);
   }
 
   cancel() {
@@ -47,13 +45,24 @@ class QRScanner extends Component {
 
   read(qr) {
       if(qr.data) {
-        let { host, port, eci, protocol, rid } = JSON.parse(qr.data);
-        if(!this.state.alertOpened && host && port && eci && protocol && rid) {
-          this.setState({alertOpened: true, host, port, eci, protocol, rid});
-          this.alertUser(`Connect to engine at\n${protocol}://${host}:${port}\nwith ruleset id ${rid}?`);
+        let { host, eci, rid } = this.parseCodeString(qr.data);
+        if(!this.state.alertOpened && host && eci && rid) {
+          this.setState({alertOpened: true, host, eci, rid});
+          this.alertUser(`Connect to engine at\n${host}\nwith ruleset id ${rid}?`);
 
         }
       }
+  }
+
+  parseCodeString(query) {
+    let toReturn = new Map();
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if(pair[0] === 'host' || pair[0] === 'eci' || pair[0] === 'rid') toReturn[pair[0]] = pair[1];
+    }
+
+    return toReturn;
   }
 
   alertUser(alertMessage) {
