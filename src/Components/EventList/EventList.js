@@ -91,9 +91,6 @@ class EventList extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, maxHeight: "13%", justifyContent: "center", alignItems: "center" }}>
-          <Text style={{fontSize: 25, fontWeight: 'bold'}}>Events</Text>
-        </View>
         <View styles={styles.container}>
           <SectionList
             sections={this.state.displayFormatted}

@@ -6,8 +6,14 @@ import QueryList from '../QueryList/QueryList';
 const QueryStackNavigator =
   createStackNavigator(
     {
-      QueryList,
-      Query
+      QueryList: {
+        screen: QueryList,
+        navigationOptions: { headerTitle: "Queries"  }
+      },
+      Query: {
+        screen: Query,
+        navigationOptions: { headerTitle: "Query"  }
+      }
     }
   );
 

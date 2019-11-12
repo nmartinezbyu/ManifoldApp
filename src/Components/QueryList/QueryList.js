@@ -43,9 +43,6 @@ class QueryList extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 1, maxHeight: "13%", justifyContent: "center", alignItems: "center" }}>
-          <Text style={{fontSize: 25, fontWeight: 'bold'}}>Queries</Text>
-        </View>
         <View styles={styles.container}>
           <FlatList
             data={this.props.display}
