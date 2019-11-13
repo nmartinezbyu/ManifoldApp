@@ -9,10 +9,7 @@ import { Text, View} from 'react-native';
 const EventStackNavigator =
   createStackNavigator(
     {
-      EventList: {
-        screen: EventList,
-        navigationOptions: { headerTitle: "Events"  }
-      },
+      EventList: EventList,
       Event: {
         screen: Event,
         navigationOptions: { headerTitle: "Event"  }

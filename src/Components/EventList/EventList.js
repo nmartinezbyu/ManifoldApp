@@ -21,9 +21,18 @@ item: {
   fontSize: 18,
   height: 44,
 },
-})
+});
 
 class EventList extends Component {
+  static navigationOptions = {
+      headerTitle: "Events",
+      headerLeft: () => (
+        <Button
+          onPress={() => console.log("button pressed")}
+          title="Disconnect"
+        />
+      ),
+    };
 
 
   constructor(props) {

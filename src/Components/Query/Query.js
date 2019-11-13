@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 const passedIn = {
   name: "demo",
-  args: [ "name" ]
+  args: [ "name", "game" ]
 };
 
 class Query extends Component {
@@ -28,18 +28,16 @@ class Query extends Component {
       this.setState({
         [key] : value
       });
-      console.log(key, value);
     };
   }
 
   render() {
     return (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>{passedIn.name}</Text>
           <View style={{height: 300, width:"80%", marginTop: 40, padding:4}}>
           <Text>Arguments:</Text>
 
-          <FlatList data={passedIn.args} renderItem={({ item }) => <Arguments title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
+          <FlatList data={passedIn.args} keyExtractor={(item, index) => {return "key"+index}} renderItem={({ item }) => <Arguments title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
 
           </View>
           <Button title="Query" onPress={this.onPress} />
