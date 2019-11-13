@@ -72,8 +72,8 @@ class EventList extends Component {
     })
   }
 
-  openEvent() {
-    this.props.navigation.navigate('Event');
+  openEvent(type, domain) {
+    this.props.navigation.navigate('Event', { type: type, domain: domain});
   }
 
   onPress() {
@@ -84,8 +84,8 @@ class EventList extends Component {
     return <Text style={styles.sectionHeader}>{section.domain}</Text>
   }
 
-  renderItem({item}) {
-    return <Text style={styles.item} onPress={this.openEvent}>{item}</Text>
+  renderItem({item, section}) {
+    return <Text style={styles.item} onPress={() => {this.openEvent(item, section.domain)}}>{item}</Text>
   }
 
   render() {

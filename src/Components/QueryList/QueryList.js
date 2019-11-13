@@ -32,12 +32,12 @@ class QueryList extends Component {
     return this.props.eventAction(this.props.connect.protocol, this.props.connect.host, this.props.connect.port, this.props.connect.eci, this.state.domain, this.state.type);
   }
 
-  openQuery() {
-    this.props.navigation.navigate('Query');
+  openQuery(query) {
+    this.props.navigation.navigate('Query', { query: query });
   }
 
   renderItem({item}) {
-      return <Text style={styles.item} onPress={this.openQuery}>{item.name}</Text>
+      return <Text style={styles.item} onPress={() => {this.openQuery(item)}}>{item.name}</Text>
   }
 
   render() {

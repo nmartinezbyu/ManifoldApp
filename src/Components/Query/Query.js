@@ -33,6 +33,7 @@ class Query extends Component {
   }
 
   render() {
+    console.log("query", this.props.navigation.getParam("query"));
     return (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text>{passedIn.name}</Text>
