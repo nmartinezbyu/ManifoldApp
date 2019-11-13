@@ -34,6 +34,8 @@ class Event extends Component {
   }
 
   render() {
+    console.log("type", this.props.navigation.getParam("type"));
+    console.log("domain", this.props.navigation.getParam("domain"));
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <View style={{height: 300, width:"80%", marginTop: 40, padding:4}}>
