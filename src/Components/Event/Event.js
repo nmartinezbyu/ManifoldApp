@@ -29,8 +29,7 @@ class Event extends Component {
   }
 
   render() {
-    console.log("type", this.props.navigation.getParam("type"));
-    console.log("domain", this.props.navigation.getParam("domain"));
+    console.log("event", this.props.navigation.getParam("event"));
     return (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
           <LoginTextInput onChangeText={this.onChange("domain")} title="Domain:" placeholder="pico_app" value={this.state.domain} />

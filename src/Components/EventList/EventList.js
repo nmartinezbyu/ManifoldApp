@@ -24,8 +24,6 @@ item: {
 })
 
 class EventList extends Component {
-
-
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +37,6 @@ class EventList extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.display);
     this.formatDisplay()
   }
 
@@ -50,19 +47,19 @@ class EventList extends Component {
     for(var i in display) {
       let testEvent = display[i]
       let domain = testEvent.domain
-      let type = testEvent.type
+      let attrs = testEvent.attrs
       if(displayFormatted.length !== 0) {
         for(var j in displayFormatted) {
           let obj = displayFormatted[j]
           if(obj.domain === domain) {
             hasDomain = true
-            obj.data.push(type)
+            obj.data.push(testEvent)
             break
           }
         }
       }
       if(!hasDomain) {
-        let obj = {"domain": domain, "data":[type]}
+        let obj = {"domain": domain, "data":[testEvent]}
         displayFormatted.push(obj)
       }
       hasDomain = false
@@ -72,8 +69,8 @@ class EventList extends Component {
     })
   }
 
-  openEvent(type, domain) {
-    this.props.navigation.navigate('Event', { type: type, domain: domain});
+  openEvent(item) {
+    this.props.navigation.navigate('Event', { event: item });
   }
 
   onPress() {
@@ -84,8 +81,8 @@ class EventList extends Component {
     return <Text style={styles.sectionHeader}>{section.domain}</Text>
   }
 
-  renderItem({item, section}) {
-    return <Text style={styles.item} onPress={() => {this.openEvent(item, section.domain)}}>{item}</Text>
+  renderItem({item}) {
+    return <Text style={styles.item} onPress={() => {this.openEvent(item)}}>{item.type}</Text>
   }
 
   render() {
