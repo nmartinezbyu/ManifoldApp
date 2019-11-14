@@ -14,7 +14,7 @@ sectionHeader: {
   paddingBottom: 2,
   fontSize: 20,
   fontWeight: 'bold',
-  backgroundColor: 'rgba(247,247,247,1.0)',
+  backgroundColor: 'rgba(185, 185, 185, .5)',
 },
 item: {
   padding: 10,
