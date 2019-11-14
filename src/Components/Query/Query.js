@@ -4,11 +4,6 @@ import Arguments from './Arguments';
 import { queryAction } from '../../Actions/QueryAction';
 import { connect } from 'react-redux';
 
-const passedIn = {
-  name: "demo",
-  args: [ "name", "game" ]
-};
-
 class Query extends Component {
   constructor(props) {
     super(props);
@@ -19,8 +14,8 @@ class Query extends Component {
     this.onPress = this.onPress.bind(this);
   }
 
-  onPress() {
-    return this.props.queryAction(this.props.connect.host, this.props.connect.eci, this.props.connect.rid, passedIn.name, this.state);
+  onPress(passedIn) {
+    return() => { return this.props.queryAction(this.props.connect.host, this.props.connect.eci, this.props.connect.rid, passedIn.name, this.state); }
   }
 
   onChange(key) {
@@ -32,7 +27,7 @@ class Query extends Component {
   }
 
   render() {
-    console.log("query", this.props.navigation.getParam("query"));
+    let passedIn = this.props.navigation.getParam("query");
     return (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
           <View style={{height: 300, width:"80%", marginTop: 40, padding:4}}>
@@ -41,10 +36,10 @@ class Query extends Component {
           <FlatList data={passedIn.args} keyExtractor={(item, index) => {return "key"+index}} renderItem={({ item }) => <Arguments title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
 
           </View>
-          <Button title="Query" onPress={this.onPress} />
+          <Button title="Query" onPress={this.onPress(passedIn)} />
           <View style={{height: 100, width:"80%", marginTop: 40, borderWidth: 2, padding:4}}>
           <ScrollView>
-            <Text >{JSON.stringify(this.props.resp, undefined, 4)}</Text>
+            <Text >{JSON.stringify(this.props.resp[passedIn.name], undefined, 4)}</Text>
           </ScrollView>
           </View>
         </View>
@@ -54,7 +49,7 @@ class Query extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    resp: (state.query) ? state.query.response : "",
+    resp: (state.query) ? state.query : {},
     connect: state.connect
   };
 }

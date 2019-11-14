@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Text, View, Button, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { connectAction } from '../../Actions/ConnectAction';
+import { disconnectAction } from '../../Actions/DisconnectAction';
 
 class QRScanner extends Component {
   constructor(props) {
@@ -20,15 +21,22 @@ class QRScanner extends Component {
     this.connect = this.connect.bind(this);
     this.cancel = this.cancel.bind(this);
     this.connectionAttempted = this.connectionAttempted.bind(this);
+    this.disconnect = this.disconnect.bind(this);
   }
 
   connectionAttempted(success, message) {
-    if(success) this.props.navigation.navigate('TabNavigation');
+    if(success) {
+      this.props.navigation.navigate('TabNavigation');
+    }
     else {
       Alert.alert("Connection Error", message, [{ text: "Ok" }])
     }
   }
 
+  disconnect() {
+    console.log("hey")
+    this.props.navigation.navigate('connect');
+  }
 
   back() {
     this.props.navigation.navigate('connect');
@@ -37,6 +45,7 @@ class QRScanner extends Component {
   connect() {
     this.setState({alertOpened: false});
     this.props.connectAction(this.state.host, this.state.eci, this.state.rid, this.connectionAttempted);
+    this.props.disconnectAction(this.disconnect);
   }
 
   cancel() {
@@ -113,4 +122,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, { connectAction })(QRScanner);
+export default connect(mapStateToProps, { connectAction, disconnectAction })(QRScanner);

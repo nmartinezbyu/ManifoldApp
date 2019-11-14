@@ -108,6 +108,10 @@ class EventList extends Component {
             keyExtractor={(item, index) => index}
           />
         </View>
+        <Button
+          onPress={this.props.disconnect}
+          title="Disconnect"
+        />
       </View>
     );
   }
@@ -115,7 +119,8 @@ class EventList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    display: state.connect ? state.connect.info.events : []
+    display: state.connect ? state.connect.info.events : [],
+    disconnect: state.disconnect
   };
 }
 
