@@ -36,6 +36,8 @@ target 'PicoApp' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'PicoAppTests' do
     inherit! :search_paths
     # Pods for testing

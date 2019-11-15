@@ -8,7 +8,7 @@ export const queryAction = (host, eci, rid, func, args) => {
         dispatch({
             type: "QUERY",
             payload: {
-              response: resp.data
+                [func]: resp.data
             }
           });
       });

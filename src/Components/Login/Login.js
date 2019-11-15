@@ -8,9 +8,9 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      host: "localhost",
+      host: "192.168.50.66",
       port: "8080",
-      eci: "WF7oxKhovWvcXR2Jg7mTaK",
+      eci: "BnZXHjKV3SLSP2UdS9GJ1r",
       protocol: "http",
       rid: "pico_app"
     }

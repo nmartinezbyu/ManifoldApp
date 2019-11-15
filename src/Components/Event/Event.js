@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
-import { Text, View, Button, ScrollView} from 'react-native';
+import { Text, View, Button, ScrollView, FlatList } from 'react-native';
 import LoginTextInput from '../Login/LoginTextInput';
+import Attributes from './Attributes';
 import { eventAction } from '../../Actions/EventAction';
 import { connect } from 'react-redux';
+
+const passedIn = {
+  domain: "pico_app",
+  type: "say_hello",
+  attrs: [ "name" ]
+};
 
 class Event extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      domain: "",
-      type: ""
     }
 
     this.onChange = this.onChange.bind(this);
@@ -17,7 +22,7 @@ class Event extends Component {
   }
 
   onPress() {
-    return this.props.eventAction(this.props.connect.protocol, this.props.connect.host, this.props.connect.port, this.props.connect.eci, this.state.domain, this.state.type);
+    return this.props.eventAction(this.props.connect.host, this.props.connect.eci, passedIn.domain, passedIn.type, this.state);
   }
 
   onChange(key) {
@@ -31,16 +36,20 @@ class Event extends Component {
   render() {
     console.log("event", this.props.navigation.getParam("event"));
     return (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <LoginTextInput onChangeText={this.onChange("domain")} title="Domain:" placeholder="pico_app" value={this.state.domain} />
-          <LoginTextInput onChangeText={this.onChange("type")} title="Type:" placeholder="say_hello" value={this.state.type} />
-          <Button disabled={!(this.state.domain && this.state.type)} title="Raise Event" onPress={this.onPress} />
-          <View style={{height: 300, width:"80%", marginTop: 40, borderWidth: 2, padding:4}}>
-          <ScrollView>
-            <Text >{JSON.stringify(this.props.resp, undefined, 4)}</Text>
-          </ScrollView>
-          </View>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <View style={{height: 300, width:"80%", marginTop: 40, padding:4}}>
+        <Text>Attributes:</Text>
+
+        <FlatList data={passedIn.attrs} keyExtractor={(item, index) => {return "key"+index}} renderItem={({ item }) => <Attributes title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
+
         </View>
+        <Button title="Raise Event" onPress={this.onPress} />
+        <View style={{height: 100, width:"80%", marginTop: 40, borderWidth: 2, padding:4}}>
+        <ScrollView>
+          <Text >{JSON.stringify(this.props.resp, undefined, 4)}</Text>
+        </ScrollView>
+        </View>
+      </View>
     );
   }
 }

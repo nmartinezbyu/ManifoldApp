@@ -21,7 +21,7 @@ item: {
   fontSize: 18,
   height: 44,
 },
-})
+});
 
 class EventList extends Component {
   constructor(props) {
@@ -104,6 +104,7 @@ class EventList extends Component {
             keyExtractor={(item, index) => index}
           />
         </View>
+        
       </View>
     );
   }
@@ -111,7 +112,8 @@ class EventList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    display: state.connect ? state.connect.info.events : []
+    display: state.connect ? state.connect.info.events : [],
+    disconnect: state.disconnect
   };
 }
 
