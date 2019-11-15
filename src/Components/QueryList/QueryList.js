@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, Button, FlatList, StyleSheet} from 'react-native';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +39,12 @@ class QueryList extends Component {
   }
 
   renderItem({item}) {
-      return <Text style={styles.item} onPress={() => {this.openQuery(item)}}>{item.name}</Text>
+      return (
+        <View>
+          <Text style={styles.item} onPress={() => {this.openQuery(item)}}>{item.name}</Text>
+          <FontAwesomeIcon icon={ faCoffee } />
+        </View>
+      );
   }
 
   render() {
