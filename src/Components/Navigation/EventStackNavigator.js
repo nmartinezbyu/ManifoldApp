@@ -9,10 +9,13 @@ import { Text, View} from 'react-native';
 const EventStackNavigator =
   createStackNavigator(
     {
-      EventList: EventList,
+      EventList: {
+        screen: EventList,
+        navigationOptions: { headerTitle: "Events", headerStyle: { backgroundColor: "rgba(15,134,193,.7)" }, headerTintColor: '#fff'  }
+      },
       Event: {
         screen: Event,
-        navigationOptions: { headerTitle: "Event"  }
+        navigationOptions: { headerTitle: "Event", headerStyle: { backgroundColor: "rgba(15,134,193,.7)" }, headerTintColor: '#fff'   }
       }
     }
   );

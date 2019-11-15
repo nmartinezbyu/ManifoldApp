@@ -8,11 +8,11 @@ const QueryStackNavigator =
     {
       QueryList: {
         screen: QueryList,
-        navigationOptions: { headerTitle: "Queries"  }
+        navigationOptions: { headerTitle: "Queries", headerStyle: { backgroundColor: "rgba(15,134,193,.7)" }, headerTintColor: '#fff' }
       },
       Query: {
         screen: Query,
-        navigationOptions: { headerTitle: "Query"  }
+        navigationOptions: { headerTitle: "Query", headerStyle: { backgroundColor: "rgba(15,134,193,.7)" }, headerTintColor: '#fff'  }
       }
     }
   );
