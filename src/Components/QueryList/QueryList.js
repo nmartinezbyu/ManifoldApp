@@ -37,7 +37,13 @@ class QueryList extends Component {
   }
 
   renderItem({item}) {
-      return <Text style={styles.item} onPress={() => {this.openQuery(item)}}>{item.name}</Text>
+      return (
+        <View>
+          <Text style={styles.item} onPress={() => {this.openQuery(item)}}>{item.name}</Text>
+          <View style={{ backgroundColor: 'rgba(185, 185, 185, .2)', height: 1}}>
+          </View>
+        </View>
+      )
   }
 
   render() {
