@@ -12,7 +12,15 @@ const TabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarOptions: {
         labelStyle: {
-          fontSize: 20,
+          fontSize: 20
+        },
+        style:{
+            borderTopWidth: 2,
+            borderTopColor:'#D3D3D3'
+        },
+        indicatorStyle: {
+            top: 0,
+            backgroundColor: 'red',
         }
       }
     }
@@ -22,7 +30,15 @@ const TabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarOptions: {
         labelStyle: {
-          fontSize: 20,
+          fontSize: 20
+        },
+        style:{
+            borderTopWidth: 2,
+            borderTopColor:'#D3D3D3'
+        },
+        indicatorStyle: {
+            top: 0,
+            backgroundColor: 'red',
         }
       }
     }

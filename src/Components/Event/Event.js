@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, ScrollView, FlatList } from 'react-native';
+import { Text, View, Button, ScrollView, FlatList, StyleSheet } from 'react-native';
 import LoginTextInput from '../Login/LoginTextInput';
 import Attributes from './Attributes';
 import { eventAction } from '../../Actions/EventAction';
@@ -10,6 +10,21 @@ const passedIn = {
   type: "say_hello",
   attrs: [ "name" ]
 };
+
+const styles = StyleSheet.create({
+  picoButtonBackground: {
+    backgroundColor: "rgba(15,134,193,.7)",
+    borderRadius: 15,
+    marginTop: 10
+  },
+  picoButton: {
+    margin: 4,
+    paddingHorizontal: 6,
+    textAlign: "center",
+    color: 'white',
+    fontSize: 20
+  }
+})
 
 class Event extends Component {
   constructor(props) {
@@ -37,14 +52,16 @@ class Event extends Component {
     console.log("event", this.props.navigation.getParam("event"));
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <View style={{height: 300, width:"80%", marginTop: 40, padding:4}}>
-        <Text>Attributes:</Text>
+        <View style={{ flex:1, width:"80%", marginTop: 20, padding: 10}}>
+        <Text style={{ fontSize: 30, marginBottom: 10 }}>Attributes:</Text>
 
         <FlatList data={passedIn.attrs} keyExtractor={(item, index) => {return "key"+index}} renderItem={({ item }) => <Attributes title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
 
         </View>
-        <Button title="Raise Event" onPress={this.onPress} />
-        <View style={{height: 100, width:"80%", marginTop: 40, borderWidth: 2, padding:4}}>
+        <View style={styles.picoButtonBackground}>
+          <Text style={styles.picoButton} onPress={this.onPress}>Raise Event</Text>
+        </View>
+        <View style={{ flex: 1, height: 100, width:"80%", marginTop: 20, marginBottom: 10, borderWidth: 2, padding:4}}>
         <ScrollView>
           <Text >{JSON.stringify(this.props.resp, undefined, 4)}</Text>
         </ScrollView>

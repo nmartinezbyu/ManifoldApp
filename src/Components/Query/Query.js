@@ -1,14 +1,33 @@
 import React, { Component } from 'react';
-import { Text, View, Button, ScrollView, FlatList} from 'react-native';
+import { Text, View, Button, ScrollView, FlatList, StyleSheet } from 'react-native';
 import Arguments from './Arguments';
 import { queryAction } from '../../Actions/QueryAction';
 import { connect } from 'react-redux';
+
+const styles = StyleSheet.create({
+  picoButtonBackground: {
+    backgroundColor: "rgba(15,134,193,.7)",
+    borderRadius: 15,
+    marginTop: 10
+  },
+  picoButton: {
+    margin: 4,
+    paddingHorizontal: 6,
+    textAlign: "center",
+    color: 'white',
+    fontSize: 20
+  }
+})
 
 class Query extends Component {
   constructor(props) {
     super(props);
 
     this.state={};
+
+    this.viewabilityConfig = {
+      waitForInteraction: false
+    }
 
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
@@ -30,14 +49,16 @@ class Query extends Component {
     let passedIn = this.props.navigation.getParam("query");
     return (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <View style={{height: 300, width:"80%", marginTop: 40, padding:4}}>
-          <Text>Arguments:</Text>
+          <View style={{ flex: 1, width:"80%", marginTop: 20, padding: 10 }}>
+          <Text style={{ fontSize: 30, marginBottom: 10 }}>Arguments:</Text>
 
-          <FlatList data={passedIn.args} keyExtractor={(item, index) => {return "key"+index}} renderItem={({ item }) => <Arguments title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
+          <FlatList data={passedIn.args} viewabilityConfig = {this.viewabilityConfig} keyExtractor={(item, index) => {return "key"+index}} renderItem={({ item }) => <Arguments title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
 
           </View>
-          <Button title="Query" onPress={this.onPress(passedIn)} />
-          <View style={{height: 100, width:"80%", marginTop: 40, borderWidth: 2, padding:4}}>
+          <View style={styles.picoButtonBackground}>
+            <Text style={styles.picoButton} onPress={this.onPress(passedIn)}>Query</Text>
+          </View>
+          <View style={{ flex: 1, height: 100, width:"80%", marginTop: 20, marginBottom: 10, borderWidth: 2, padding:4}}>
           <ScrollView>
             <Text >{JSON.stringify(this.props.resp[passedIn.name], undefined, 4)}</Text>
           </ScrollView>

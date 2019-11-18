@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, Button, SectionList, StyleSheet} from 'react-native';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 const styles = StyleSheet.create({
 container: {
@@ -14,12 +16,13 @@ sectionHeader: {
   paddingBottom: 2,
   fontSize: 20,
   fontWeight: 'bold',
-  backgroundColor: 'rgba(185, 185, 185, .5)',
+  backgroundColor: 'rgba(240, 240, 240, 1)',
 },
 item: {
   padding: 10,
   fontSize: 18,
   height: 44,
+  flex: 1
 },
 });
 
@@ -84,9 +87,14 @@ class EventList extends Component {
   renderItem({item}) {
     return (
       <View>
-        <Text style={styles.item} onPress={() => {this.openEvent(item)}}>
-          {item.type}
-        </Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <Text style={styles.item} onPress={() => {this.openEvent(item)}}>
+            {item.type}
+          </Text>
+          <View style={{ flex: 1, paddingTop: 15, paddingRight: 5, alignItems: 'flex-end'}}>
+            <FontAwesomeIcon style={{ color: 'rgba(15,134,193, 1)' }} icon={ faChevronRight } />
+          </View>
+        </View>
         <View style={{ backgroundColor: 'rgba(185, 185, 185, .2)', height: 1}}>
         </View>
       </View>
@@ -104,7 +112,7 @@ class EventList extends Component {
             keyExtractor={(item, index) => index}
           />
         </View>
-        
+
       </View>
     );
   }

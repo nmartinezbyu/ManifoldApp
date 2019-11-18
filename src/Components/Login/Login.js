@@ -8,11 +8,11 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      host: "192.168.50.66",
+      host: "localhost",
       port: "8080",
-      eci: "BnZXHjKV3SLSP2UdS9GJ1r",
+      eci: "WF7oxKhovWvcXR2Jg7mTaK",
       protocol: "http",
-      rid: "pico_app"
+      rid: "io.picolabs.wrangler"
     }
 
     this.onChange = this.onChange.bind(this);
