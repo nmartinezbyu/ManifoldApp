@@ -11,7 +11,7 @@ const EventStackNavigator =
     {
       EventList: {
         screen: EventList,
-        navigationOptions: { headerTitle: "Events", headerStyle: { backgroundColor: "rgba(15,134,193,.7)" }, headerTintColor: '#fff'  }
+        navigationOptions: { headerTitle: "Events", headerStyle: { backgroundColor: "rgba(15,134,193,.7)" }, headerTintColor: '#fff' }
       },
       Event: {
         screen: Event,

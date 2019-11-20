@@ -19,9 +19,9 @@ sectionHeader: {
   backgroundColor: 'rgba(240, 240, 240, 1)',
 },
 item: {
-  padding: 10,
+  padding: 15,
   fontSize: 18,
-  height: 44,
+  height: 50,
   flex: 1
 },
 });
@@ -91,7 +91,7 @@ class EventList extends Component {
           <Text style={styles.item} onPress={() => {this.openEvent(item)}}>
             {item.type}
           </Text>
-          <View style={{ flex: 1, paddingTop: 15, paddingRight: 5, alignItems: 'flex-end'}}>
+          <View style={{ flex: 1, paddingTop: 20, paddingRight: 5, alignItems: 'flex-end'}}>
             <FontAwesomeIcon style={{ color: 'rgba(15,134,193, 1)' }} icon={ faChevronRight } />
           </View>
         </View>

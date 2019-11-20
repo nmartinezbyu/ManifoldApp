@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 const styles = StyleSheet.create({
   picoButtonBackground: {
     backgroundColor: "rgba(15,134,193,.7)",
-    borderRadius: 15,
-    marginTop: 10
+    borderRadius: 5,
+    marginTop: 0
   },
   picoButton: {
     margin: 4,
@@ -50,7 +50,7 @@ class Query extends Component {
     return (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
           <View style={{ flex: 1, width:"80%", marginTop: 20, padding: 10 }}>
-          <Text style={{ fontSize: 30, marginBottom: 10 }}>Arguments:</Text>
+          <Text style={{ fontSize: 30, marginBottom: 10, fontWeight: 'bold' }}>Arguments:</Text>
 
           <FlatList data={passedIn.args} viewabilityConfig = {this.viewabilityConfig} keyExtractor={(item, index) => {return "key"+index}} renderItem={({ item }) => <Arguments title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
 
@@ -58,7 +58,7 @@ class Query extends Component {
           <View style={styles.picoButtonBackground}>
             <Text style={styles.picoButton} onPress={this.onPress(passedIn)}>Query</Text>
           </View>
-          <View style={{ flex: 1, height: 100, width:"80%", marginTop: 20, marginBottom: 10, borderWidth: 2, padding:4}}>
+          <View style={{ flex: 1, height: 100, width:"80%", marginTop: 20, marginBottom: 10, borderWidth: 1, backgroundColor: '#e7e7e7', padding:4}}>
           <ScrollView>
             <Text >{JSON.stringify(this.props.resp[passedIn.name], undefined, 4)}</Text>
           </ScrollView>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, Button, Alert } from 'react-native';
+import { Text, View, TextInput, Button, Alert, Image } from 'react-native';
 import { connect } from 'react-redux';
 import LoginTextInput from './LoginTextInput';
 import { connectAction } from '../../Actions/ConnectAction';
+import PicoLabs from './pico-labs.png'
 
 class Login extends Component {
   constructor(props) {
@@ -47,16 +48,24 @@ class Login extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <LoginTextInput onChangeText={this.onChange("host")} title="Host:" placeholder="10.0.2.2" value={this.state.host} />
-        <LoginTextInput onChangeText={this.onChange("port")} title="Port:" placeholder="8080" value={this.state.port} />
-        <LoginTextInput onChangeText={this.onChange("eci")} title="ECI:" placeholder="3FcPg2WL6zbJEaf47HP2CR" value={this.state.eci} />
-        <LoginTextInput onChangeText={this.onChange("rid")} title="RID:" placeholder="pico_app" value={this.state.rid} />
-        <LoginTextInput onChangeText={this.onChange("protocol")} title="Protocol:" placeholder="http" value={this.state.protocol} />
-        <View style={{flexDirection: 'row', justifyContent: "space-around"}}>
-          <View style={{margin: 5}}><Button disabled={!(this.state.host && this.state.port && this.state.eci && this.state.protocol)} title="Connect" onPress={this.onPress} /></View>
-          <View style={{margin: 5}}><Button title="Scan" onPress={this.openScanner} /></View>
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <View style={{ marginTop: 100 }}>
+          <Image
+            style={{ width: 200, height: 180 }}
+            source={PicoLabs}
+          />
         </View>
+
+          <LoginTextInput onChangeText={this.onChange("host")} title="Host:" placeholder="10.0.2.2" value={this.state.host} />
+          <LoginTextInput onChangeText={this.onChange("port")} title="Port:" placeholder="8080" value={this.state.port} />
+          <LoginTextInput onChangeText={this.onChange("eci")} title="ECI:" placeholder="3FcPg2WL6zbJEaf47HP2CR" value={this.state.eci} />
+          <LoginTextInput onChangeText={this.onChange("rid")} title="RID:" placeholder="pico_app" value={this.state.rid} />
+          <LoginTextInput onChangeText={this.onChange("protocol")} title="Protocol:" placeholder="http" value={this.state.protocol} />
+          <View style={{flexDirection: 'row', justifyContent: "space-around"}}>
+            <View style={{margin: 5}}><Button disabled={!(this.state.host && this.state.port && this.state.eci && this.state.protocol)} title="Connect" onPress={this.onPress} /></View>
+            <View style={{margin: 5}}><Button title="Scan" onPress={this.openScanner} /></View>
+          </View>
+
       </View>
     );
   }

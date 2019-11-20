@@ -10,9 +10,9 @@ const styles = StyleSheet.create({
    paddingTop: 22
   },
   item: {
-    padding: 10,
+    padding: 15,
     fontSize: 18,
-    height: 44,
+    height: 50,
     flex: 1
   },
 })
@@ -46,7 +46,7 @@ class QueryList extends Component {
             <Text style={styles.item} onPress={() => {this.openQuery(item);}}>
               {item.name}
             </Text>
-            <View style={{ flex: 1, paddingTop: 15, paddingRight: 5, alignItems: 'flex-end'}}>
+            <View style={{ flex: 1, paddingTop: 20, paddingRight: 5, alignItems: 'flex-end'}}>
               <FontAwesomeIcon style={{ color: 'rgba(15,134,193, 1)' }} icon={ faChevronRight } />
             </View>
           </View>
