@@ -69,7 +69,6 @@ class Event extends Component {
   //<FlatList data={passedIn.attrs} keyExtractor={(item, index) => {return "key"+index}} scrollEnabled={false} renderItem={({ item }) => <Attributes title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
 
   render() {
-    console.log("event", this.props.navigation.getParam("event"));
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={{ marginTop: 0, padding: 10, width:"auto" }} contentContainerStyle={{ alignItems: "center", flexGrow: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
