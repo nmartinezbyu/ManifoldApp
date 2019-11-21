@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, FlatList, StyleSheet} from 'react-native';
+import { Text, View, Button, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
@@ -41,9 +41,9 @@ class QueryList extends Component {
 
   renderItem({item}) {
       return (
-        <View>
+        <TouchableOpacity onPress={() => {this.openQuery(item);}}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={styles.item} onPress={() => {this.openQuery(item);}}>
+            <Text style={styles.item}>
               {item.name}
             </Text>
             <View style={{ flex: 1, paddingTop: 20, paddingRight: 5, alignItems: 'flex-end'}}>
@@ -52,7 +52,7 @@ class QueryList extends Component {
           </View>
           <View style={{ backgroundColor: 'rgba(185, 185, 185, .2)', height: 1}}>
           </View>
-        </View>
+        </TouchableOpacity>
       )
   }
 

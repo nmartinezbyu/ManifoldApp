@@ -24,11 +24,6 @@ class Query extends Component {
     super(props);
 
     this.state={};
-
-    this.viewabilityConfig = {
-      waitForInteraction: false
-    }
-
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
   }
@@ -45,24 +40,43 @@ class Query extends Component {
     };
   }
 
+  displayArguments(passedIn) {
+    let out = []
+    for(let i in passedIn.args) {
+      let item = passedIn.args[i]
+      out.push(
+        <Arguments title={item} value={this.state[item]} key={"key".concat(i)} onChange={this.onChange(item)} />
+      )
+    }
+
+    if (out.length === 0) {
+      out.push(
+        <Text style={{ flex: 1, fontSize: 20, marginTop: 10, fontWeight: 'bold' }}> None </Text>
+      )
+    }
+
+    return out;
+  }
+
+// <FlatList data={passedIn.args} keyExtractor={(item, index) => {return "key"+index}} scrollEnabled={false} renderItem={({ item }) => <Arguments title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
   render() {
     let passedIn = this.props.navigation.getParam("query");
     return (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <View style={{ flex: 1, width:"80%", marginTop: 20, padding: 10 }}>
-          <Text style={{ fontSize: 30, marginBottom: 10, fontWeight: 'bold' }}>Arguments:</Text>
+        <View style={{ flex: 1}}>
+          <ScrollView style={{ marginTop: 0, padding: 10, width:"auto" }} contentContainerStyle={{ alignItems: "center", flexGrow: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
+            <Text style={{ fontSize: 30, marginBottom: 10, fontWeight: 'bold', width: "80%" }}>Arguments:</Text>
 
-          <FlatList data={passedIn.args} viewabilityConfig = {this.viewabilityConfig} keyExtractor={(item, index) => {return "key"+index}} renderItem={({ item }) => <Arguments title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
+            {this.displayArguments(passedIn)}
 
-          </View>
-          <View style={styles.picoButtonBackground}>
-            <Text style={styles.picoButton} onPress={this.onPress(passedIn)}>Query</Text>
-          </View>
-          <View style={{ flex: 1, height: 100, width:"80%", marginTop: 20, marginBottom: 10, borderWidth: 1, backgroundColor: '#e7e7e7', padding:4}}>
-          <ScrollView>
-            <Text >{JSON.stringify(this.props.resp[passedIn.name], undefined, 4)}</Text>
+            <View style={styles.picoButtonBackground}>
+              <Text style={styles.picoButton} onPress={this.onPress(passedIn)}>Query</Text>
+            </View>
+            <View style={{ height: 315, width:"85%", marginTop: 20, marginBottom: 0, borderWidth: 1, backgroundColor: '#e7e7e7', padding:4}}>
+              <ScrollView>
+                <Text >{JSON.stringify(this.props.resp[passedIn.name], undefined, 4)}</Text>
+              </ScrollView>
+            </View>
           </ScrollView>
-          </View>
         </View>
     );
   }
