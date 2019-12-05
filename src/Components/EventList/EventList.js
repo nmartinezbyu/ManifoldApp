@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, SectionList, StyleSheet} from 'react-native';
+import { Text, View, Button, SectionList, StyleSheet, TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
@@ -86,9 +86,9 @@ class EventList extends Component {
 
   renderItem({item}) {
     return (
-      <View>
+      <TouchableOpacity onPress={() => {this.openEvent(item)}}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text style={styles.item} onPress={() => {this.openEvent(item)}}>
+          <Text style={styles.item}>
             {item.type}
           </Text>
           <View style={{ flex: 1, paddingTop: 20, paddingRight: 5, alignItems: 'flex-end'}}>
@@ -97,7 +97,7 @@ class EventList extends Component {
         </View>
         <View style={{ backgroundColor: 'rgba(185, 185, 185, .2)', height: 1}}>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 

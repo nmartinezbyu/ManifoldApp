@@ -48,24 +48,43 @@ class Event extends Component {
     };
   }
 
+  displayAttributes() {
+    let out = []
+    for(let i in passedIn.attrs) {
+      let item = passedIn.attrs[i]
+      out.push(
+        <Attributes title={item} value={this.state[item]} onChange={this.onChange(item)} />
+      )
+    }
+
+    if (out.length === 0) {
+      out.push(
+        <Text style={{ flex: 1, fontSize: 20, marginTop: 10, fontWeight: 'bold' }}> None </Text>
+      )
+    }
+
+    return out;
+  }
+
+  //<FlatList data={passedIn.attrs} keyExtractor={(item, index) => {return "key"+index}} scrollEnabled={false} renderItem={({ item }) => <Attributes title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
+
   render() {
-    console.log("event", this.props.navigation.getParam("event"));
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <View style={{ flex:1, width:"80%", marginTop: 20, padding: 10}}>
-        <Text style={{ fontSize: 30, marginBottom: 10, fontWeight: 'bold' }}>Attributes:</Text>
+      <View style={{ flex: 1 }}>
+        <ScrollView style={{ marginTop: 0, padding: 10, width:"auto" }} contentContainerStyle={{ alignItems: "center", flexGrow: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
+          <Text style={{ fontSize: 30, marginBottom: 10, fontWeight: 'bold', width: "85%" }}>Attributes:</Text>
 
-        <FlatList data={passedIn.attrs} keyExtractor={(item, index) => {return "key"+index}} renderItem={({ item }) => <Attributes title={item} value={this.state[item]} onChange={this.onChange(item)} />} />
+          {this.displayAttributes()}
 
-        </View>
-        <View style={styles.picoButtonBackground}>
-          <Text style={styles.picoButton} onPress={this.onPress}>Raise Event</Text>
-        </View>
-        <View style={{ flex: 1, height: 100, width:"80%", marginTop: 20, marginBottom: 10, borderWidth: 1, backgroundColor: '#e7e7e7', padding:4}}>
-        <ScrollView>
-          <Text >{JSON.stringify(this.props.resp, undefined, 4)}</Text>
+          <View style={styles.picoButtonBackground}>
+            <Text style={styles.picoButton} onPress={this.onPress}>Raise Event</Text>
+          </View>
+          <View style={{ height: 315, width:"85%", marginTop: 20, marginBottom: 0, borderWidth: 1, backgroundColor: '#e7e7e7', padding:4 }}>
+            <ScrollView>
+              <Text >{JSON.stringify(this.props.resp, undefined, 4)}</Text>
+            </ScrollView>
+          </View>
         </ScrollView>
-        </View>
       </View>
     );
   }

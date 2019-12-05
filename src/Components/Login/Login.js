@@ -1,9 +1,19 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, Button, Alert, Image } from 'react-native';
+import { Text, View, TextInput, Button, Alert, Image, StyleSheet, Platform, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import LoginTextInput from './LoginTextInput';
 import { connectAction } from '../../Actions/ConnectAction';
 import PicoLabs from './pico-labs.png'
+
+const styles = StyleSheet.create({
+  container: {
+    padding: Platform.OS === 'ios' ? (Dimensions.get('window').height >= 812 ? 100 : 50) : 50,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "space-around"
+  }
+})
 
 class Login extends Component {
   constructor(props) {
@@ -47,9 +57,10 @@ class Login extends Component {
   }
 
   render() {
+    console.log(Dimensions.get('window').height);
     return (
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <View style={{ marginTop: 100 }}>
+      <View style={styles.container}>
+        <View style={{ marginBottom: 10 }}>
           <Image
             style={{ width: 200, height: 180 }}
             source={PicoLabs}
@@ -61,7 +72,7 @@ class Login extends Component {
           <LoginTextInput onChangeText={this.onChange("eci")} title="ECI:" placeholder="3FcPg2WL6zbJEaf47HP2CR" value={this.state.eci} />
           <LoginTextInput onChangeText={this.onChange("rid")} title="RID:" placeholder="pico_app" value={this.state.rid} />
           <LoginTextInput onChangeText={this.onChange("protocol")} title="Protocol:" placeholder="http" value={this.state.protocol} />
-          <View style={{flexDirection: 'row', justifyContent: "space-around"}}>
+          <View style={{ flexDirection: 'row', justifyContent: "space-around"}}>
             <View style={{margin: 5}}><Button disabled={!(this.state.host && this.state.port && this.state.eci && this.state.protocol)} title="Connect" onPress={this.onPress} /></View>
             <View style={{margin: 5}}><Button title="Scan" onPress={this.openScanner} /></View>
           </View>
