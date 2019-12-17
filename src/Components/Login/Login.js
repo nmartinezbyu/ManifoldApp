@@ -24,8 +24,13 @@ class Login extends Component {
       host: "",
       port: "",
       eci: "",
+<<<<<<< HEAD
       rid: "",
       protocol: ""
+=======
+      protocol: "",
+      rid: ""
+>>>>>>> d9f6a4f96e5f981fb2ee42285cfa750aae9ef87d
     }
 
     this.onChange = this.onChange.bind(this);
