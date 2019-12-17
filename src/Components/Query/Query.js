@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, ScrollView, FlatList, StyleSheet } from 'react-native';
+import { Text, View, Button, ScrollView, FlatList, StyleSheet, Dimensions } from 'react-native';
 import Arguments from './Arguments';
 import { queryAction } from '../../Actions/QueryAction';
 import { connect } from 'react-redux';
@@ -51,7 +51,7 @@ class Query extends Component {
 
     if (out.length === 0) {
       out.push(
-        <Text style={{ flex: 1, fontSize: 20, marginTop: 10, fontWeight: 'bold' }}> None </Text>
+        <Text key={"None"} style={{ flex: 1, fontSize: 20, marginTop: 10, marginBottom: 50, fontWeight: 'bold' }}> None </Text>
       )
     }
 
@@ -62,8 +62,8 @@ class Query extends Component {
   render() {
     let passedIn = this.props.navigation.getParam("query");
     return (
-        <View style={{ flex: 1}}>
-          <ScrollView style={{ marginTop: 0, padding: 10, width:"auto" }} contentContainerStyle={{ alignItems: "center", flexGrow: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
+        <View style={{flex: 1 }}>
+          <ScrollView style={{ marginTop: 0, padding: 10, width:"auto", flex: 0.8 }} contentContainerStyle={{ alignItems: "center", flexGrow: 1, justifyContent: 'space-between', flexDirection: 'column' }}>
             <Text style={{ fontSize: 30, marginBottom: 10, fontWeight: 'bold', width: "80%" }}>Arguments:</Text>
 
             {this.displayArguments(passedIn)}
@@ -71,9 +71,9 @@ class Query extends Component {
             <View style={styles.picoButtonBackground}>
               <Text style={styles.picoButton} onPress={this.onPress(passedIn)}>Query</Text>
             </View>
-            <View style={{ height: 315, width:"85%", marginTop: 20, marginBottom: 0, borderWidth: 1, backgroundColor: '#e7e7e7', padding:4}}>
+            <View style={{ height: 315, width:"85%", marginTop: 20, marginBottom: 15, borderWidth: 1, backgroundColor: '#e7e7e7', padding:4}}>
               <ScrollView>
-                <Text >{JSON.stringify(this.props.resp[passedIn.name], undefined, 4)}</Text>
+                <Text>{JSON.stringify(this.props.resp[passedIn.name], undefined, 4)}</Text>
               </ScrollView>
             </View>
           </ScrollView>

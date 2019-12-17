@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, SectionList, StyleSheet, TouchableOpacity} from 'react-native';
+import { Text, View, Button, SectionList, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
@@ -24,6 +24,9 @@ item: {
   height: 50,
   flex: 1
 },
+sectionList: {
+  height: '100%'
+}
 });
 
 class EventList extends Component {
@@ -106,6 +109,7 @@ class EventList extends Component {
       <View style={{ flex: 1 }}>
         <View styles={styles.container}>
           <SectionList
+            style={styles.sectionList}
             sections={this.state.displayFormatted}
             renderItem={this.renderItem}
             renderSectionHeader={this.renderSectionHeader}

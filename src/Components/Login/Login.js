@@ -3,33 +3,36 @@ import { Text, View, TextInput, Button, Alert, Image, StyleSheet, Platform, Dime
 import { connect } from 'react-redux';
 import LoginTextInput from './LoginTextInput';
 import { connectAction } from '../../Actions/ConnectAction';
+import { disconnectAction } from '../../Actions/DisconnectAction'
 import PicoLabs from './pico-labs.png'
 
 const styles = StyleSheet.create({
   container: {
-    padding: Platform.OS === 'ios' ? (Dimensions.get('window').height >= 812 ? 100 : 50) : 50,
+    padding: Platform.OS === 'ios' ? (Dimensions.get('window').height >= 812 ? 100 : 50) : (Dimensions.get('window').height <= 732 ? 20 : 50),
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "space-around"
-  }
+  },
+  logo: Platform.OS === 'ios' ? { width: 200, height: 180 } : (Dimensions.get('window').height <= 732 ? { width: 150, height: 135 } : { width: 200, height: 180 })
 })
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      host: "localhost",
-      port: "8080",
-      eci: "WF7oxKhovWvcXR2Jg7mTaK",
-      protocol: "http",
-      rid: "io.picolabs.wrangler"
+      host: "",
+      port: "",
+      eci: "",
+      rid: "",
+      protocol: ""
     }
 
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
     this.openScanner = this.openScanner.bind(this);
     this.connectionAttempted = this.connectionAttempted.bind(this);
+    this.disconnect = this.disconnect.bind(this);
   }
 
   connectionAttempted(success, message) {
@@ -39,12 +42,18 @@ class Login extends Component {
     }
   }
 
+  disconnect() {
+    this.props.navigation.navigate('connect');
+  }
+
   onPress() {
     let host = this.state.protocol + "://" + this.state.host + ":" + this.state.port;
-    return this.props.connectAction(host, this.state.eci, this.state.rid, this.connectionAttempted);
+    this.props.connectAction(host, this.state.eci, this.state.rid, this.connectionAttempted);
+    this.props.disconnectAction(this.disconnect);
   }
 
   onChange(key) {
+    console.log("I got called");
     return (value) => {
       this.setState({
         [key] : value
@@ -57,12 +66,11 @@ class Login extends Component {
   }
 
   render() {
-    console.log(Dimensions.get('window').height);
     return (
       <View style={styles.container}>
         <View style={{ marginBottom: 10 }}>
           <Image
-            style={{ width: 200, height: 180 }}
+            style={styles.logo}
             source={PicoLabs}
           />
         </View>
@@ -73,7 +81,7 @@ class Login extends Component {
           <LoginTextInput onChangeText={this.onChange("rid")} title="RID:" placeholder="pico_app" value={this.state.rid} />
           <LoginTextInput onChangeText={this.onChange("protocol")} title="Protocol:" placeholder="http" value={this.state.protocol} />
           <View style={{ flexDirection: 'row', justifyContent: "space-around"}}>
-            <View style={{margin: 5}}><Button disabled={!(this.state.host && this.state.port && this.state.eci && this.state.protocol)} title="Connect" onPress={this.onPress} /></View>
+            <View style={{margin: 5}}><Button disabled={!(this.state.host && this.state.port && this.state.eci && this.state.rid && this.state.protocol)} title="Connect" onPress={this.onPress} /></View>
             <View style={{margin: 5}}><Button title="Scan" onPress={this.openScanner} /></View>
           </View>
 
@@ -92,4 +100,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, { connectAction })(Login);
+export default connect(mapStateToProps, { connectAction, disconnectAction })(Login);

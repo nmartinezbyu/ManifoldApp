@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
     height: 50,
     flex: 1
   },
+  flatList: {
+    height: '100%'
+  }
 })
 
 class QueryList extends Component {
@@ -61,6 +64,7 @@ class QueryList extends Component {
       <View style={{ flex: 1 }}>
         <View styles={styles.container}>
           <FlatList
+            style={styles.flatList}
             data={this.props.display}
             renderItem={this.renderItem}
             keyExtractor={(item, index) => { return index.toString() }}

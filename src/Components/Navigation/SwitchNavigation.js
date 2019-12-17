@@ -6,7 +6,7 @@ import QRScanner from '../QRScanner/QRScanner';
 import Query from '../Query/Query';
 
 
-export default createAppContainer(
+const SwitchNavigation =
   createSwitchNavigator(
     {
       QRScanner,
@@ -16,5 +16,6 @@ export default createAppContainer(
     {
       initialRouteName: 'connect',
     }
-  )
-);
+  );
+
+export default createAppContainer(SwitchNavigation);

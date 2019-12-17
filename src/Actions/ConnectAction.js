@@ -11,7 +11,7 @@ export const connectAction = (host, eci, rid, callback) => {
               host,
               eci,
               rid,
-              info: resp.data
+              info: resp.data,
             }
           });
           callback(true, "");

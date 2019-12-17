@@ -1,9 +1,11 @@
 import { RNCamera } from 'react-native-camera';
 import React, { Component } from 'react';
-import { Text, View, Button, Alert } from 'react-native';
+import { Text, View, Button, Alert, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { connectAction } from '../../Actions/ConnectAction';
 import { disconnectAction } from '../../Actions/DisconnectAction';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 class QRScanner extends Component {
   constructor(props) {
@@ -34,7 +36,6 @@ class QRScanner extends Component {
   }
 
   disconnect() {
-    console.log("hey")
     this.props.navigation.navigate('connect');
   }
 
@@ -100,15 +101,18 @@ class QRScanner extends Component {
           >
             <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
               <View style={{ justifyContent: "center", alignItems: "center", flex: 1, backgroundColor: "white", opacity: .9 }} >
-                <Text style={{fontSize: 30}}>Scan a QR code</Text>
+                <Text style={{fontSize: 30}}>Scan Pico QR Code</Text>
               </View>
               <View style={{ height:300, flexDirection: 'row' }}>
                 <View style={{flex: 1, backgroundColor: "white", opacity: .9}} />
-                <View style={{width: 300, borderColor: 'blue', borderWidth: 5}} />
+                <View style={{width: 300, borderColor: 'rgba(15,134,193, 1)', borderWidth: 5}} />
                 <View style={{flex: 1, backgroundColor: "white", opacity: .9}} />
               </View>
-              <View style={{justifyContent: "center", alignItems: "center", flex: 1, backgroundColor: "white", opacity: .9 }}>
-                <Button title="Tap here to go back" onPress={this.back} />
+              <View style={{justifyContent: "center", flex: 1, backgroundColor: "white", opacity: .9 }} >
+                  <TouchableOpacity style={{ justifyContent: "center", alignItems: "center", flexDirection: 'row' }} onPress={() => {this.back();}}>
+                    <FontAwesomeIcon style={{ color: 'rgba(15,134,193, 1)' }} icon={faArrowLeft} size={20}/>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 5, color: 'rgba(15,134,193, 1)' }}>Return</Text>
+                  </TouchableOpacity>
               </View>
             </View>
           </RNCamera>

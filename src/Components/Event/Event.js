@@ -59,7 +59,7 @@ class Event extends Component {
 
     if (out.length === 0) {
       out.push(
-        <Text style={{ flex: 1, fontSize: 20, marginTop: 10, fontWeight: 'bold' }}> None </Text>
+        <Text style={{ flex: 1, fontSize: 20, marginTop: 10, marginTop: 10, fontWeight: 'bold' }}> None </Text>
       )
     }
 
@@ -79,7 +79,7 @@ class Event extends Component {
           <View style={styles.picoButtonBackground}>
             <Text style={styles.picoButton} onPress={this.onPress}>Raise Event</Text>
           </View>
-          <View style={{ height: 315, width:"85%", marginTop: 20, marginBottom: 0, borderWidth: 1, backgroundColor: '#e7e7e7', padding:4 }}>
+          <View style={{ height: 315, width:"85%", marginTop: 20, marginBottom: 15, borderWidth: 1, backgroundColor: '#e7e7e7', padding:4 }}>
             <ScrollView>
               <Text >{JSON.stringify(this.props.resp, undefined, 4)}</Text>
             </ScrollView>
