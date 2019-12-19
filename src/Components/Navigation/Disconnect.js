@@ -19,7 +19,6 @@ class Disconnect extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.disconnect);
   return {
     disconnect:  state.disconnect
   };

@@ -26,7 +26,6 @@ const queryReducer = (last=null, action) => {
 
 const disconnectReducer = (last=()=>{}, action) => {
   if (action.type === "DISCONNECT_NAV") {
-    console.log("In reducer");
     return action.payload;
   }
   else return last;
