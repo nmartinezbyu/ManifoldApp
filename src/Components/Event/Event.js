@@ -53,7 +53,7 @@ class Event extends Component {
     for(let i in passedIn.attrs) {
       let item = passedIn.attrs[i]
       out.push(
-        <Attributes title={item} value={this.state[item]} onChange={this.onChange(item)} />
+        <Attributes key={item} title={item} value={this.state[item]} onChange={this.onChange(item)} />
       )
     }
 
