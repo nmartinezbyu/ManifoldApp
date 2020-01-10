@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import LoginTextInput from './LoginTextInput';
 import { connectAction } from '../../Actions/ConnectAction';
 import { disconnectAction } from '../../Actions/DisconnectAction'
-import PicoLabs from './pico-labs.png'
+import ManifoldLogo from '../../ManifoldLogo.png'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faGithub, faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { faRss, faCogs, faCompass } from '@fortawesome/free-solid-svg-icons'
 
 const styles = StyleSheet.create({
   container: {
@@ -14,24 +17,67 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around"
    },
-  logo: Platform.OS === "ios" ? (Dimensions.get('window').height >= 812 ? { width: 200, height: 180 } : { width: 160, height: 143 } ) : (Dimensions.get('window').height <= 732 ? { width: 150, height: 135 } : { width: 200, height: 180 }),
-  loginButtons: Platform.OS === "ios" ? { flexDirection: 'row', justifyContent: "space-around"} : { flexDirection: 'row' }
+  logo: Platform.OS === "ios" ? (Dimensions.get('window').height >= 812 ? { width: 200, height: 125 } : { width: 160, height: 143 } ) : (Dimensions.get('window').height <= 732 ? { width: 150, height: 135 } : { width: 200, height: 180 }),
+  loginButtons: Platform.OS === "ios" ? { flexDirection: 'column', justifyContent: "space-around" } : { flexDirection: 'column' },
+  info: {
+    justifyContent: "space-around",
+    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30,
+    width: "150%"
+  },
+  infoText: {
+    textAlign: "left",
+     flex: 1
+  },
+  GoogleButton: {
+    justifyContent: "space-around",
+    backgroundColor: "#1a73e8",
+    flexDirection: 'row',
+    alignItems: "center",
+    padding: 5,
+    margin: 3,
+     marginBottom: 10
+  },
+  GithubButton: {
+    justifyContent: "space-around",
+    backgroundColor: "rgb(36, 41, 46)",
+    flexDirection: 'row',
+    alignItems: "center",
+    padding: 5,
+    margin: 3,
+    marginBottom: 10
+  },
+  Github: {
+    color: "#ffff",
+    margin: 5
+  },
+  Google: {
+    color: "#ffff",
+    margin: 5
+  },
+  infoIcon: {
+    color: "rgba(15,134,193,.7)",
+    marginRight: 30,
+    flex: 1
+  }
 })
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      host: "",
-      port: "",
-      eci: "",
-      rid: "",
-      protocol: ""
+      host: "localhost",
+      port: "8080",
+      eci: "Jo49GpvhTq39vScQMJfCU",
+      rid: "org.sovrin.manifold_agent",
+      protocol: "http"
     }
 
     this.onChange = this.onChange.bind(this);
     this.onPress = this.onPress.bind(this);
-    this.openScanner = this.openScanner.bind(this);
+    this.loginGithub = this.loginGithub.bind(this);
     this.connectionAttempted = this.connectionAttempted.bind(this);
     this.disconnect = this.disconnect.bind(this);
   }
@@ -62,54 +108,36 @@ class Login extends Component {
     };
   }
 
-  openScanner() {
-    this.props.navigation.navigate('QRScanner');
+  loginGithub() {
+    this.props.navigation.navigate('MyApps');
   }
 
-  displayLoginForm() {
-    if(Platform.OS === "ios") {
-      return (
-        <KeyboardAvoidingView style={{ marginBottom: 50 }} behavior="position">
-          <View style={{ marginBottom: 10, justifyContent: "center",
-              alignItems: "center" }}>
-              <Image
-                style={styles.logo}
-                source={PicoLabs}
-              />
-          </View>
-          <LoginTextInput onChangeText={this.onChange("host")} title="Host:" placeholder="10.0.2.2" value={this.state.host} />
-          <LoginTextInput onChangeText={this.onChange("port")} title="Port:" placeholder="8080" value={this.state.port} />
-          <LoginTextInput ref="eci" onChangeText={this.onChange("eci")} title="ECI:" placeholder="3FcPg2WL6zbJEaf47HP2CR" value={this.state.eci} />
-          <LoginTextInput ref="rid" onChangeText={this.onChange("rid")} title="RID:" placeholder="pico_app" value={this.state.rid} />
-          <LoginTextInput ref="protocol" onChangeText={this.onChange("protocol")} title="Protocol:" placeholder="http" value={this.state.protocol} />
-        </KeyboardAvoidingView>
-      );
-    }
-    else {
-      return [
-          <View style={{ marginBottom: 10, alignItems: "center" }}>
-              <Image
-                style={styles.logo}
-                source={PicoLabs}
-              />
-          </View>,
-          <LoginTextInput onChangeText={this.onChange("host")} title="Host:" placeholder="10.0.2.2" value={this.state.host} />,
-          <LoginTextInput onChangeText={this.onChange("port")} title="Port:" placeholder="8080" value={this.state.port} />,
-          <LoginTextInput ref="eci" onChangeText={this.onChange("eci")} title="ECI:" placeholder="3FcPg2WL6zbJEaf47HP2CR" value={this.state.eci} />,
-          <LoginTextInput ref="rid" onChangeText={this.onChange("rid")} title="RID:" placeholder="pico_app" value={this.state.rid} />,
-          <LoginTextInput ref="protocol" onChangeText={this.onChange("protocol")} title="Protocol:" placeholder="http" value={this.state.protocol} />
-      ];
-    }
+  displayLoginBody() {
+    return (
+      <View style={{ marginBottom: 50 }}>
+        <View style={{ marginBottom: 10, justifyContent: "center",
+            alignItems: "center" }}>
+            <Image
+              style={styles.logo}
+              source={ManifoldLogo}
+            />
+            <View style={styles.info}><FontAwesomeIcon style={styles.infoIcon} icon={faRss} size={50}/><Text style={styles.infoText}>Manifold is a platform that allows you to connect and interact with your things</Text></View>
+            <View style={styles.info}><FontAwesomeIcon style={styles.infoIcon} icon={faCogs} size={50}/><Text style={styles.infoText}>From car keys to smarthome devices, Manifold offers control</Text></View>
+            <View style={styles.info}><FontAwesomeIcon style={styles.infoIcon} icon={faCompass} size={50}/><Text style={styles.infoText}>Discover new ways to make your things smart</Text></View>
+        </View>
+      </View>
+    );
   }
 
   render() {
     return (
       <View style={styles.container}>
-        {this.displayLoginForm()}
+        {this.displayLoginBody()}
         <View style={styles.loginButtons}>
-          <View style={{margin: 5}}><Button disabled={!(this.state.host && this.state.port && this.state.eci && this.state.rid && this.state.protocol)} title="Connect" onPress={this.onPress} /></View>
-          <View style={{margin: 5}}><Button title="Scan" onPress={this.openScanner} /></View>
+          <View style={styles.GoogleButton}><FontAwesomeIcon style={styles.Google} icon={faGoogle} size={30}/><Button disabled={!(this.state.host && this.state.port && this.state.eci && this.state.rid && this.state.protocol)} onPress={this.onPress} title="Sign in with Google" color="#ffff" /></View>
+          <View style={styles.GithubButton}><FontAwesomeIcon style={styles.Github} icon={faGithub} size={30}/><Button title="Sign in with Github" color="#ffff" onPress={this.loginGithub}/></View>
         </View>
+        <Text style={{color: "rgba(15,134,193,.7)", alignItems: "center", textAlign:"center", width: "100%", marginTop: 20}}>Manifold is currently under heavy development. Many apps and features are still forthcoming</Text>
       </View>
     );
   }
