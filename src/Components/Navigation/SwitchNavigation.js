@@ -4,7 +4,7 @@ import Login from '../Login/Login';
 import TabNavigation from './TabNavigation';
 import QRScanner from '../QRScanner/QRScanner';
 import Query from '../Query/Query';
-import MyApps from '../MyApps/MyApps'
+import ManifoldStackNavigator from './ManifoldStackNavigator'
 
 
 const SwitchNavigation =
@@ -13,7 +13,7 @@ const SwitchNavigation =
       QRScanner,
       connect: Login,
       TabNavigation,
-      MyApps
+      ManifoldStackNavigator
     },
     {
       initialRouteName: 'connect',
