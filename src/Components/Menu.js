@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Icon, Tooltip, Text, ListItem, Divider } from 'react-native-elements'
-import ManifoldLogo from '../../ManifoldLogo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import {OffCanvas3D} from 'react-native-off-canvas-menu'
+import { OffCanvas3D } from 'react-native-off-canvas-menu'
+import MyApps from './MyApps/MyApps'
 
 
-class MyAppsHeader extends Component {
+class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,9 +25,20 @@ class MyAppsHeader extends Component {
 
   render() {
     return (
-      <Icon name="menu" color="white" size={30}/>
-    );
+      <View style={{flex: 1}}>
+        <OffCanvas3D
+        active={this.state.menuOpen}
+        onMenuPress={this.handleMenu.bind(this)}
+        backgroundColor={'#222222'}
+        menuTextStyles={{color: 'white'}}
+        handleBackPress={true}
+        menuItems={[
+        
+        ]}/>
+      </View>
+    )
   }
+
 }
 
-export default MyAppsHeader
+export default Menu;

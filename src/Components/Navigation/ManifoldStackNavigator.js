@@ -16,6 +16,7 @@ const ManifoldStackNavigator =
           header: (<Header
                     leftComponent={<MyAppsHeader/>}
                     centerComponent={{ text: 'My Apps', style: { color: '#fff', fontSize: 20, fontWeight: "bold" } }}
+                    rightComponent={<Disconnect/>}
                   />)
         }
       }

@@ -3,7 +3,8 @@ import { Text, View, TextInput, Button, Alert, Image, StyleSheet, Platform, Dime
 import { connect } from 'react-redux';
 import LoginTextInput from './LoginTextInput';
 import { connectAction } from '../../Actions/ConnectAction';
-import { disconnectAction } from '../../Actions/DisconnectAction'
+import { disconnectAction } from '../../Actions/DisconnectAction';
+import { eventAction } from '../../Actions/EventAction';
 import ManifoldLogo from '../../ManifoldLogo.png'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faGithub, faGoogle } from '@fortawesome/free-brands-svg-icons'
@@ -70,7 +71,7 @@ class Login extends Component {
     this.state = {
       host: "localhost",
       port: "8080",
-      eci: "Jo49GpvhTq39vScQMJfCU",
+      eci: "eWksBdNnoSxFnMDtZQ215",
       rid: "org.sovrin.manifold_agent",
       protocol: "http"
     }
@@ -109,7 +110,9 @@ class Login extends Component {
   }
 
   loginGithub() {
-    this.props.navigation.navigate('MyApps');
+    this.props.eventAction(this.state.protocol+"://"+this.state.host+":"+this.state.port, this.state.eci, "manifold", "apps", {});
+    this.props.disconnectAction(this.disconnect);
+    this.props.navigation.navigate('ManifoldStackNavigator');
   }
 
   displayLoginBody() {
@@ -149,8 +152,9 @@ const mapStateToProps = (state) => {
     port: (state.connect) ? state.connect.port : "",
     eci: (state.connect) ? state.connect.eci : "",
     protocol: (state.connect) ? state.connect.protocol : "",
-    rid: (state.connect) ? state.connect.rid : ""
+    rid: (state.connect) ? state.connect.rid : "",
+    resp: (state.event) ? state.event.response : ""
   };
 }
 
-export default connect(mapStateToProps, { connectAction, disconnectAction })(Login);
+export default connect(mapStateToProps, { connectAction, disconnectAction, eventAction })(Login);
